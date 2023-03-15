@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class ServicePublishImpl implements ServicePublish {
 
-	String fileName = "C:\\Users\\supun\\OneDrive\\Desktop\\Y3.S2\\SE3030 - Software Architecture\\Assignment 01\\medicines.txt";
+	String fileName = "medicines.txt";
 	File file = new File(fileName);
 
 	@Override
