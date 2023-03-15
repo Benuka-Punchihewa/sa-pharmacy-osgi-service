@@ -3,18 +3,27 @@ package com.sliit.orderpublisher;
 import java.util.ArrayList;
 
 public class Order {
-	 @Override
-	public String toString() {
-		return "Order [userId=" + userId + ", medicines=" + medicines + "]";
+	long id;
+	int userId;
+	ArrayList<Medicine> medicines;
+
+	public Order() {
+		super();
 	}
 
-	int userId;
-	 ArrayList<Medicine> medicines;
-	
-	public Order(int userId, ArrayList<Medicine> medicines) {
+	public Order(long id, int userId, ArrayList<Medicine> medicines) {
 		super();
+		this.id = id;
 		this.userId = userId;
 		this.medicines = medicines;
+	}
+
+	public long getId(long id) {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public int getUserId() {
@@ -32,6 +41,10 @@ public class Order {
 	public void setMedicines(ArrayList<Medicine> medicines) {
 		this.medicines = medicines;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", userId=" + userId + ", medicines=" + medicines + "]";
+	}
+
 }

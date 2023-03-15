@@ -26,32 +26,32 @@ public class Activator implements BundleActivator {
 		try {
 			while (true) {
 				int option = 0;
-				int userId = 0;
-				ArrayList<Medicine> medicines = new ArrayList<Medicine>();
 
-				System.out.println("Enter 1 to create a new order");
+				System.out.println("Enter 1 to Create a New Order\nEnter 2 View Orders by Order ID");
 
 				// get option input
 				try {
 					System.out.print("Option: ");
 					option = Integer.parseInt(in.readLine());
 				} catch (NumberFormatException ex) {
-					System.out.println("Only integers are allowed!");
+					System.out.println("Only Integers are Allowed!");
 				}
 
 				// process options
 				switch (option) {
 				case 1:
+					int userId = 0;
+					ArrayList<Medicine> medicines = new ArrayList<Medicine>();
 
 					// get user id
 					try {
 						System.out.print("User ID: ");
 						userId = Integer.parseInt(in.readLine());
 					} catch (NumberFormatException ex) {
-						System.out.println("Only integers are allowed!");
+						System.out.println("Only Integers are Allowed!");
 					}
 
-					// TODO: Validate user 
+					// TODO: Validate user
 
 					int medicineOption = 1;
 					int medicineId = 0;
@@ -64,7 +64,7 @@ public class Activator implements BundleActivator {
 							System.out.print("Medicine ID: ");
 							medicineId = Integer.parseInt(in.readLine());
 						} catch (NumberFormatException ex) {
-							System.out.println("Only integers are allowed!");
+							System.out.println("Only Integers are Allowed!");
 						}
 
 						// TODO: Validate medicine
@@ -74,7 +74,7 @@ public class Activator implements BundleActivator {
 							System.out.print("Medicine Quanity: ");
 							quantity = Integer.parseInt(in.readLine());
 						} catch (NumberFormatException ex) {
-							System.out.println("Only integers are allowed!");
+							System.out.println("Only Integers are Allowed!");
 						}
 
 						// TODO: Validate stock
@@ -85,28 +85,47 @@ public class Activator implements BundleActivator {
 
 						try {
 							System.out.println(
-									"Enter 1 to add a new medicine to order. \nEnter any number to proceed order.");
+									"Enter 1 to Add a New Medicine to Order. \nEnter Any Number to Proceed Order.");
 							System.out.print("Option:");
 							medicineOption = Integer.parseInt(in.readLine());
 						} catch (NumberFormatException ex) {
-							System.out.println("Only integers are allowed!");
+							System.out.println("Only Integers are Allowed!");
 						}
 					}
 
 					// save order
-					Order order = servicePublish.createOrder(userId, medicines);
-					System.out.println(order.toString());
+					Order order1 = servicePublish.createOrder(userId, medicines);
+					System.out.println(order1.toString());
+
+					break;
+				case 2:
+					long orderId = 0;
+
+					// read order id
+					try {
+						System.out.print("Order ID: ");
+						orderId = Long.parseLong(in.readLine());
+					} catch (NumberFormatException ex) {
+						System.out.println("Only Long Values are Allowed!");
+					}
+
+					// get order
+					Order order2 = servicePublish.getById(orderId);
+					if (order2 != null)
+						System.out.println(order2.toString());
 
 					break;
 				default:
-					System.out.println("Please select a valid option!");
-					continue;
+					System.out.println("Please Select a Valid Option!");
+					break;
 				}
 
 			}
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
+		
+		System.out.println();
 	}
 
 	public void stop(BundleContext context) throws Exception {
