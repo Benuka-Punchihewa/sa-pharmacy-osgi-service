@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MedicineServicePublishImpl implements MedicineServicePublish {
 
@@ -65,6 +66,7 @@ public class MedicineServicePublishImpl implements MedicineServicePublish {
 				medicine.setName(name);
 				medicine.setPrice(price);
 				medicine.setStock(stock);
+				
 				break;
 			}
 
@@ -76,6 +78,39 @@ public class MedicineServicePublishImpl implements MedicineServicePublish {
 
 		return medicine;
 
+	}
+
+	@Override
+	public ArrayList<Medicine> getMedicines() {
+		
+		ArrayList<Medicine> medicines = new ArrayList<>();
+
+		try {
+			FileReader reader = new FileReader(file);
+			BufferedReader buffer = new BufferedReader(reader);
+
+			String line;
+			while ((line = buffer.readLine()) != null) {
+				String[] parts = line.split(":");
+
+				int id = Integer.parseInt(parts[0]);
+				String name = parts[1];
+				float price = Float.parseFloat(parts[2]);
+				int stock = Integer.parseInt(parts[3]);
+
+				// create medicine object
+				Medicine medicine = new Medicine(id, name, price, stock);
+				medicines.add(medicine);
+			}
+
+			buffer.close();
+		} catch (Exception e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+
+		return medicines;
+	
 	}
 
 }

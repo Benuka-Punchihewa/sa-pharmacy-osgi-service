@@ -63,5 +63,15 @@ public class Medicine implements Serializable{
 		this.stock = stock;
 	}
 	
+	@Override
+	public String toString() {
+
+		StringBuilder sb = new StringBuilder();
+		// display medicine details
+		sb.append("Medicine ID: " + this.getId() + "\tName: " + this.getName() + "\tPrice: "
+				+ this.getPrice() + "\tStock: " + this.getStock());
+		
+		return sb.toString();
+	}
 
 }

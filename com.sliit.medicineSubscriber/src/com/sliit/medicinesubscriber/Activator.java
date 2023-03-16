@@ -1,5 +1,6 @@
 package com.sliit.medicinesubscriber;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.osgi.framework.BundleActivator;
@@ -19,7 +20,7 @@ public class Activator implements BundleActivator {
 		serviceReference = context.getServiceReference(MedicineServicePublish.class.getName());
 		MedicineServicePublish medicineServicePublish = (MedicineServicePublish) context.getService(serviceReference);
 		try {
-			System.out.println("Enter a option => \n Option 1 = Create Medicien \n Option 2 = Get Medicine Using Id");
+			System.out.println("Enter a option => \n Option 1 = Create Medicien \n Option 2 = Get Medicine Using Id \n Option 3 = Get all Medicines");
 			int option;
 			Scanner input = new Scanner(System.in);
 
@@ -55,6 +56,17 @@ public class Activator implements BundleActivator {
 					System.out.println("ID:" + medicine2.getId() + "\tName:" + medicine2.getName() + "\tPrice:"
 							+ medicine2.getPrice() + "\tStock:" + medicine2.getStock());
 
+					break;
+					
+				case 3:
+					ArrayList<Medicine> medicine3 = medicineServicePublish.getMedicines();
+					
+
+					for (Medicine medicines : medicine3) {
+						System.out.println(medicines.toString());
+						System.out.println();
+					}
+					
 					break;
 				default:
 					System.out.println("Something went wrong!");
