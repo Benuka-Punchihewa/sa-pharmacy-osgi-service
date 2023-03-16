@@ -12,8 +12,8 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 
 		System.out.println("Publisher Start");
-		ServicePublish servicePublish = new ServicePublishImpl();
-		publishServiceRegistration = context.registerService(ServicePublish.class.getName(), servicePublish, null);
+		MedicineServicePublish servicePublish = new MedicineServicePublishImpl();
+		publishServiceRegistration = context.registerService(MedicineServicePublish.class.getName(), servicePublish, null);
 	}
 
 	public void stop(BundleContext context) throws Exception {

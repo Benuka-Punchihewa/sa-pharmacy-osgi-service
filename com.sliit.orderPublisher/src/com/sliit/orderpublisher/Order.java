@@ -5,20 +5,18 @@ import java.util.ArrayList;
 public class Order {
 	long id;
 	int userId;
-	ArrayList<Medicine> medicines;
+	ArrayList<OrderMedicine> medicines;
+	float totalPrice;
 
-	public Order() {
-		super();
-	}
-
-	public Order(long id, int userId, ArrayList<Medicine> medicines) {
+	public Order(long id, int userId, ArrayList<OrderMedicine> medicines, float totalPrice) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.medicines = medicines;
+		this.totalPrice = totalPrice;
 	}
 
-	public long getId(long id) {
+	public long getId() {
 		return id;
 	}
 
@@ -34,17 +32,20 @@ public class Order {
 		this.userId = userId;
 	}
 
-	public ArrayList<Medicine> getMedicines() {
+	public ArrayList<OrderMedicine> getMedicines() {
 		return medicines;
 	}
 
-	public void setMedicines(ArrayList<Medicine> medicines) {
+	public void setMedicines(ArrayList<OrderMedicine> medicines) {
 		this.medicines = medicines;
 	}
 
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", userId=" + userId + ", medicines=" + medicines + "]";
+	public float getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(float totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 }

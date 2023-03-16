@@ -7,7 +7,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import com.sliit.medicinepublisher.Medicine;
-import com.sliit.medicinepublisher.ServicePublish;
+import com.sliit.medicinepublisher.MedicineServicePublish;
 
 public class Activator implements BundleActivator {
 
@@ -16,8 +16,8 @@ public class Activator implements BundleActivator {
 	public void start(BundleContext context) throws Exception {
 
 		System.out.println("Start Subscriber Service");
-		serviceReference = context.getServiceReference(ServicePublish.class.getName());
-		ServicePublish servicePublish = (ServicePublish) context.getService(serviceReference);
+		serviceReference = context.getServiceReference(MedicineServicePublish.class.getName());
+		MedicineServicePublish medicineServicePublish = (MedicineServicePublish) context.getService(serviceReference);
 		try {
 			System.out.println("Enter a option => \n Option 1 = Create Medicien \n Option 2 = Get Medicine Using Id");
 			int option;
@@ -40,7 +40,7 @@ public class Activator implements BundleActivator {
 					System.out.print("Enter Medicin Stock: ");
 					int stock = input.nextInt();
 
-					Medicine medicine = servicePublish.createMedicine(id, name, price, stock);
+					Medicine medicine = medicineServicePublish.createMedicine(id, name, price, stock);
 					System.out.println("Medicine created successfully!");
 					System.out.println("ID:" + medicine.getId() + "\tName:" + medicine.getName() + "\tPrice:"
 							+ medicine.getPrice() + "\tStock:" + medicine.getStock());
@@ -50,7 +50,7 @@ public class Activator implements BundleActivator {
 					System.out.print("Enter Medicin Id: ");
 					int Medid = input.nextInt();
 
-					Medicine medicine2 = servicePublish.getMedicineById(Medid);
+					Medicine medicine2 = medicineServicePublish.getMedicineById(Medid);
 					System.out.println("Found Medicine!");
 					System.out.println("ID:" + medicine2.getId() + "\tName:" + medicine2.getName() + "\tPrice:"
 							+ medicine2.getPrice() + "\tStock:" + medicine2.getStock());

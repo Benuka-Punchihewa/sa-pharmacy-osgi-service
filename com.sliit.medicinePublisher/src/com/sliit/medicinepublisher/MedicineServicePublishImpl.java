@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ServicePublishImpl implements ServicePublish {
+public class MedicineServicePublishImpl implements MedicineServicePublish {
 
 	String fileName = "medicines.txt";
 	File file = new File(fileName);

@@ -8,9 +8,9 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
-import com.sliit.orderpublisher.Medicine;
 import com.sliit.orderpublisher.Order;
-import com.sliit.orderpublisher.ServicePublish;
+import com.sliit.orderpublisher.OrderMedicine;
+import com.sliit.orderpublisher.OrderServicePublish;
 
 public class Activator implements BundleActivator {
 
@@ -18,8 +18,9 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 		System.out.println("Start  Subscriber Service");
-		serviceReference = context.getServiceReference(ServicePublish.class.getName());
-		ServicePublish servicePublish = (ServicePublish) context.getService(serviceReference);
+		
+		serviceReference = context.getServiceReference(OrderServicePublish.class.getName());
+		OrderServicePublish orderServicePublish = (OrderServicePublish) context.getService(serviceReference);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -27,7 +28,7 @@ public class Activator implements BundleActivator {
 			while (true) {
 				int option = 0;
 
-				System.out.println("Enter 1 to Create a New Order\nEnter 2 View Orders by Order ID");
+				System.out.println("Enter 1 to Create a New Order\nEnter 2 View Orders");
 
 				// get option input
 				try {
@@ -41,7 +42,7 @@ public class Activator implements BundleActivator {
 				switch (option) {
 				case 1:
 					int userId = 0;
-					ArrayList<Medicine> medicines = new ArrayList<Medicine>();
+					ArrayList<OrderMedicine> medicines = new ArrayList<OrderMedicine>();
 
 					// get user id
 					try {
@@ -67,7 +68,9 @@ public class Activator implements BundleActivator {
 							System.out.println("Only Integers are Allowed!");
 						}
 
-						// TODO: Validate medicine
+						// validate medicine
+					
+
 
 						// get medicine quantity
 						try {
@@ -77,10 +80,11 @@ public class Activator implements BundleActivator {
 							System.out.println("Only Integers are Allowed!");
 						}
 
+						float orderMedicinePrice = 0;
 						// TODO: Validate stock
 
 						// add medicine
-						Medicine medicine = new Medicine(medicineId, quantity);
+						OrderMedicine medicine = new OrderMedicine(medicineId, quantity, orderMedicinePrice);
 						medicines.add(medicine);
 
 						try {
@@ -94,25 +98,18 @@ public class Activator implements BundleActivator {
 					}
 
 					// save order
-					Order order1 = servicePublish.createOrder(userId, medicines);
+					Order order1 = orderServicePublish.createOrder(userId, medicines);
 					System.out.println(order1.toString());
 
 					break;
 				case 2:
-					long orderId = 0;
-
-					// read order id
-					try {
-						System.out.print("Order ID: ");
-						orderId = Long.parseLong(in.readLine());
-					} catch (NumberFormatException ex) {
-						System.out.println("Only Long Values are Allowed!");
-					}
-
 					// get order
-					Order order2 = servicePublish.getById(orderId);
-					if (order2 != null)
-						System.out.println(order2.toString());
+					ArrayList<Order> orders = orderServicePublish.getOrders();
+					
+					// print orders
+					for (Order order: orders) {
+						System.out.println(order.toString());
+					}
 
 					break;
 				default:
