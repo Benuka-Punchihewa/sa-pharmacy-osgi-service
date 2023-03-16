@@ -1,5 +1,6 @@
 package com.sliit.usersubscriber;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.osgi.framework.BundleActivator;
@@ -20,7 +21,7 @@ public class Activator implements BundleActivator {
 		UserServicePublish servicePublish = (UserServicePublish) context.getService(serviceReference);
 
 		try {
-			System.out.println("Enter a option >>>>> \n Option 1 = Create User \n Option 2 = Get User Using Id");
+			System.out.println("Enter a option >>>>> \n Option 1 = Create User \n Option 2 = Get User Using Id \n Option 3 = Get User List");
 			int option;
 			Scanner input = new Scanner(System.in);
 
@@ -62,8 +63,17 @@ public class Activator implements BundleActivator {
 							+ "\tUser Address:" + user2.getAddress());
 
 					break;
+				case 3:
+					// get user
+					ArrayList<User> users = servicePublish.getUsers();
+					
+					//print user
+					for ( User user1 : users) {
+						System.out.println(user1.toString());
+					}
+					break;
 				default:
-					System.out.println("Something went wrong!");
+					System.out.println("Please Select a Valid Option!");
 				}
 			}
 

@@ -73,5 +73,15 @@ public class User implements Serializable{
 		this.address = address;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		// display user details
+		sb.append("User ID: " + this.getUser_id() + "\tUser Name: " +  this.getUsername() + "\tUser Age: "
+				+ this.getAge() + "\tUser Contact Number: " + this.getContect_number() + "\tUser Address: " + this.getAddress());
+		
+		return sb.toString();
+	}
 	
 }

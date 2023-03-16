@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UserServicePublishImpl implements UserServicePublish{
 
@@ -79,6 +80,35 @@ public class UserServicePublishImpl implements UserServicePublish{
 		}
 
 		return user;
-
+	}
+	
+	@Override
+	public ArrayList<User> getUsers(){
+		ArrayList<User> users  = new ArrayList<>();
+		
+		try {
+			FileReader reader = new FileReader("user.txt");
+			BufferedReader buffer = new BufferedReader(reader);
+			
+			String line;
+			while ((line = buffer.readLine()) != null) {
+				String[] parts = line.split(":");
+				
+				String userId = parts[0];
+				String UserName = parts[1];
+				String Age = parts[2];
+				String contectNumber = parts[3];
+				String Address = parts[4];
+				
+				User user = new User(userId, UserName, Age, contectNumber, Address);
+	            users.add(user);
+			}
+			buffer.close();
+		}catch(Exception e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		
+		return users;
 	}
 }
