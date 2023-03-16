@@ -41,7 +41,7 @@ public class MedicineServicePublishImpl implements MedicineServicePublish {
 	@Override
 	public Medicine getMedicineById(int id) {
 
-		Medicine medicine = new Medicine();
+		Medicine medicine = null;
 
 		try {
 			FileReader reader = new FileReader(file);
@@ -60,11 +60,11 @@ public class MedicineServicePublishImpl implements MedicineServicePublish {
 					continue;
 
 				// set values to medicine
+				medicine = new Medicine();
 				medicine.setId(Mid);
 				medicine.setName(name);
 				medicine.setPrice(price);
 				medicine.setStock(stock);
-
 				break;
 			}
 

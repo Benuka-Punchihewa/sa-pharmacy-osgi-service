@@ -8,6 +8,8 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
+import com.sliit.medicinepublisher.Medicine;
+import com.sliit.medicinepublisher.MedicineServicePublish;
 import com.sliit.orderpublisher.Order;
 import com.sliit.orderpublisher.OrderMedicine;
 import com.sliit.orderpublisher.OrderServicePublish;
@@ -18,9 +20,12 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 		System.out.println("Start  Subscriber Service");
-		
+
 		serviceReference = context.getServiceReference(OrderServicePublish.class.getName());
 		OrderServicePublish orderServicePublish = (OrderServicePublish) context.getService(serviceReference);
+
+		serviceReference = context.getServiceReference(MedicineServicePublish.class.getName());
+		MedicineServicePublish medicineServicePublish = (MedicineServicePublish) context.getService(serviceReference);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -69,23 +74,35 @@ public class Activator implements BundleActivator {
 						}
 
 						// validate medicine
-					
-
+						Medicine medicine = medicineServicePublish.getMedicineById(medicineId);
+						if (medicine == null) {
+							System.out.println("Medicine not found, Please try again!");
+							continue;
+						}
 
 						// get medicine quantity
 						try {
-							System.out.print("Medicine Quanity: ");
+							System.out.print(medicine.getName() + " Quanity: ");
 							quantity = Integer.parseInt(in.readLine());
 						} catch (NumberFormatException ex) {
 							System.out.println("Only Integers are Allowed!");
 						}
 
 						float orderMedicinePrice = 0;
-						// TODO: Validate stock
+						int stock = medicine.getStock();
+						float price = medicine.getPrice();
+
+						// validate stock
+						if (quantity > stock) {
+							System.out.println("Does not have enough stock, Please try again!");
+							continue;
+						} else {
+							orderMedicinePrice = price * quantity;
+						}
 
 						// add medicine
-						OrderMedicine medicine = new OrderMedicine(medicineId, quantity, orderMedicinePrice);
-						medicines.add(medicine);
+						OrderMedicine orderMedicine = new OrderMedicine(medicineId, quantity, orderMedicinePrice);
+						medicines.add(orderMedicine);
 
 						try {
 							System.out.println(
@@ -105,9 +122,9 @@ public class Activator implements BundleActivator {
 				case 2:
 					// get order
 					ArrayList<Order> orders = orderServicePublish.getOrders();
-					
+
 					// print orders
-					for (Order order: orders) {
+					for (Order order : orders) {
 						System.out.println(order.toString());
 					}
 
@@ -121,7 +138,7 @@ public class Activator implements BundleActivator {
 		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
-		
+
 		System.out.println();
 	}
 

@@ -41,7 +41,7 @@ public class OrderServicePublishImpl implements OrderServicePublish {
 			}
 
 			// Total price
-			sb.append(totalPrice).append(":");
+			sb.append(":").append(totalPrice).append(":");
 
 			sb.append(System.lineSeparator());
 			writer.write(sb.toString());
