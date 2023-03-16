@@ -7,5 +7,5 @@ Bundle-Activator: com.sliit.ordersubscriber.Activator
 Bundle-Vendor: SLIIT
 Bundle-RequiredExecutionEnvironment: JavaSE-12
 Automatic-Module-Name: com.sliit.orderSubscriber
-Import-Package: org.osgi.framework;version="1.3.0", com.sliit.orderpublisher, com.sliit.medicinepublisher
+Import-Package: org.osgi.framework;version="1.3.0", com.sliit.orderpublisher, com.sliit.medicinepublisher, com.sliit.userpublisher
 Bundle-ActivationPolicy: lazy

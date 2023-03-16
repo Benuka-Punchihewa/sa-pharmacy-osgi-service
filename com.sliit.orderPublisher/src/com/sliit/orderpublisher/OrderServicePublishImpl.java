@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class OrderServicePublishImpl implements OrderServicePublish {
 
 	@Override
-	public Order createOrder(int userId, ArrayList<OrderMedicine> medicines) {
+	public Order createOrder(String userId, ArrayList<OrderMedicine> medicines) {
 
 		long orderId = System.currentTimeMillis();
 		float totalPrice = 0;
@@ -70,7 +70,7 @@ public class OrderServicePublishImpl implements OrderServicePublish {
 				String[] parts = line.split(":");
 
 				long id = Long.parseLong(parts[0]);
-				int userId = Integer.parseInt(parts[1]);
+				String userId = parts[1];
 				String medicineListString = parts[2];
 				float totalPrice = Float.parseFloat(parts[3]);
 
