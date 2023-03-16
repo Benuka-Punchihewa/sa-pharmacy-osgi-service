@@ -13,6 +13,8 @@ import com.sliit.medicinepublisher.MedicineServicePublish;
 import com.sliit.orderpublisher.Order;
 import com.sliit.orderpublisher.OrderMedicine;
 import com.sliit.orderpublisher.OrderServicePublish;
+import com.sliit.userpublisher.User;
+import com.sliit.userpublisher.UserServicePublish;
 
 public class Activator implements BundleActivator {
 
@@ -26,6 +28,9 @@ public class Activator implements BundleActivator {
 
 		serviceReference = context.getServiceReference(MedicineServicePublish.class.getName());
 		MedicineServicePublish medicineServicePublish = (MedicineServicePublish) context.getService(serviceReference);
+
+		serviceReference = context.getServiceReference(UserServicePublish.class.getName());
+		UserServicePublish userServicePublish = (UserServicePublish) context.getService(serviceReference);
 
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
@@ -46,18 +51,23 @@ public class Activator implements BundleActivator {
 				// process options
 				switch (option) {
 				case 1:
-					int userId = 0;
+					String userId = "";
 					ArrayList<OrderMedicine> medicines = new ArrayList<OrderMedicine>();
 
 					// get user id
 					try {
 						System.out.print("User ID: ");
-						userId = Integer.parseInt(in.readLine());
+						userId = in.readLine();
 					} catch (NumberFormatException ex) {
 						System.out.println("Only Integers are Allowed!");
 					}
 
-					// TODO: Validate user
+					// Validate user
+					User user = userServicePublish.getUsereById(userId);
+					if (user == null) {
+						System.out.println("User not found, Please try again!");
+						continue;
+					}
 
 					int medicineOption = 1;
 					int medicineId = 0;
@@ -116,7 +126,7 @@ public class Activator implements BundleActivator {
 
 					// save order
 					Order order1 = orderServicePublish.createOrder(userId, medicines);
-					System.out.println(order1.toString());
+					System.out.println("Order has been created successfully with ID," + order1.getId());
 
 					break;
 				case 2:
@@ -126,6 +136,7 @@ public class Activator implements BundleActivator {
 					// print orders
 					for (Order order : orders) {
 						System.out.println(order.toString());
+						System.out.println();
 					}
 
 					break;
