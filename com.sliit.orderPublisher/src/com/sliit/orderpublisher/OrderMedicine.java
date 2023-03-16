@@ -1,13 +1,15 @@
 package com.sliit.orderpublisher;
 
-public class Medicine {
-	 int medicineId;
-	 int quantity;
-	
-	public Medicine(int medicineId, int quantity) {
+public class OrderMedicine {
+	int medicineId;
+	int quantity;
+	float price;
+
+	public OrderMedicine(int medicineId, int quantity, float price) {
 		super();
 		this.medicineId = medicineId;
 		this.quantity = quantity;
+		this.price = price;
 	}
 
 	public int getMedicineId() {
@@ -25,5 +27,13 @@ public class Medicine {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-}
 
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+}

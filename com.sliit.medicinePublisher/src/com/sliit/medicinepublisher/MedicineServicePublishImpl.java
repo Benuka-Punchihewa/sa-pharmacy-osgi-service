@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ServicePublishImpl implements ServicePublish {
+public class MedicineServicePublishImpl implements MedicineServicePublish {
 
 	String fileName = "medicines.txt";
 	File file = new File(fileName);
@@ -41,7 +41,7 @@ public class ServicePublishImpl implements ServicePublish {
 	@Override
 	public Medicine getMedicineById(int id) {
 
-		Medicine medicine = new Medicine();
+		Medicine medicine = null;
 
 		try {
 			FileReader reader = new FileReader(file);
@@ -60,11 +60,11 @@ public class ServicePublishImpl implements ServicePublish {
 					continue;
 
 				// set values to medicine
+				medicine = new Medicine();
 				medicine.setId(Mid);
 				medicine.setName(name);
 				medicine.setPrice(price);
 				medicine.setStock(stock);
-
 				break;
 			}
 

@@ -10,8 +10,8 @@ public class Activator implements BundleActivator {
 
 	public void start(BundleContext context) throws Exception {
 		System.out.println("Publisher Started");
-		ServicePublish publisherService = new ServicePublishImpl();
-		publishServiceRegistration = context.registerService(ServicePublish.class.getName(), publisherService, null);
+		OrderServicePublish publisherService = new OrderServicePublishImpl();
+		publishServiceRegistration = context.registerService(OrderServicePublish.class.getName(), publisherService, null);
 	}
 
 	public void stop(BundleContext context) throws Exception {

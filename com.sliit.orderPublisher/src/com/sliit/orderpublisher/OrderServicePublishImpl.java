@@ -6,12 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ServicePublishImpl implements ServicePublish {
+public class OrderServicePublishImpl implements OrderServicePublish {
 
 	@Override
-	public Order createOrder(int userId, ArrayList<Medicine> medicines) {
+	public Order createOrder(int userId, ArrayList<OrderMedicine> medicines) {
 
 		long orderId = System.currentTimeMillis();
+		float totalPrice = 0;
 
 		// write to file
 		try {
@@ -27,12 +28,21 @@ public class ServicePublishImpl implements ServicePublish {
 
 			// medicines
 			for (int i = 0; i < medicines.size(); i++) {
-				Medicine medicine = medicines.get(i);
-				sb.append(medicine.getMedicineId()).append(",").append(medicine.getQuantity());
+				OrderMedicine medicine = medicines.get(i);
+
+				// total price calculation
+				totalPrice += medicine.getPrice();
+
+				sb.append(medicine.getMedicineId()).append(",").append(medicine.getQuantity()).append(",")
+						.append(medicine.getPrice());
 				if (i < medicines.size() - 1) {
 					sb.append(";");
 				}
 			}
+
+			// Total price
+			sb.append(":").append(totalPrice).append(":");
+
 			sb.append(System.lineSeparator());
 			writer.write(sb.toString());
 
@@ -42,14 +52,15 @@ public class ServicePublishImpl implements ServicePublish {
 			e.printStackTrace();
 		}
 
-		Order order = new Order(orderId, userId, medicines);
+		Order order = new Order(orderId, userId, medicines, totalPrice);
 		return order;
 	}
 
 	@Override
-	public Order getById(long orderId) {
-		Order order = new Order();
-		
+	public ArrayList<Order> getOrders() {
+
+		ArrayList<Order> orders = new ArrayList<>();
+
 		try {
 			FileReader reader = new FileReader("orders.txt");
 			BufferedReader buffer = new BufferedReader(reader);
@@ -57,29 +68,26 @@ public class ServicePublishImpl implements ServicePublish {
 			String line;
 			while ((line = buffer.readLine()) != null) {
 				String[] parts = line.split(":");
-				
+
 				long id = Long.parseLong(parts[0]);
 				int userId = Integer.parseInt(parts[1]);
 				String medicineListString = parts[2];
-				
-				if (id != orderId) continue;
+				float totalPrice = Float.parseFloat(parts[3]);
 
 				// parse medicines list
-				ArrayList<Medicine> medicines = new ArrayList<Medicine>();
+				ArrayList<OrderMedicine> medicines = new ArrayList<OrderMedicine>();
 				String[] medicineStrings = medicineListString.split(";");
 				for (String medicineString : medicineStrings) {
 					String[] medicineParts = medicineString.split(",");
 					int medicineId = Integer.parseInt(medicineParts[0]);
 					int quantity = Integer.parseInt(medicineParts[1]);
-					medicines.add(new Medicine(medicineId, quantity));
+					float price = Float.parseFloat(medicineParts[2]);
+					medicines.add(new OrderMedicine(medicineId, quantity, price));
 				}
-				
-				// set values to order
-				order.setId(id);
-				order.setUserId(userId);
-				order.setMedicines(medicines);
-				
-				break;
+
+				// create order object
+				Order order = new Order(id, userId, medicines, totalPrice);
+				orders.add(order);
 			}
 
 			buffer.close();
@@ -87,8 +95,8 @@ public class ServicePublishImpl implements ServicePublish {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
 		}
-		
-		return order;
+
+		return orders;
 	}
 
 }
