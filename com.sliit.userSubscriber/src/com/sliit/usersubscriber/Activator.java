@@ -14,7 +14,8 @@ public class Activator implements BundleActivator {
 	ServiceReference serviceReference;
 
 	public void start(BundleContext context) throws Exception {
-		System.out.println("========================Pharmacy Management System Subscriber Service==========================");
+		System.out.println(
+				"========================Pharmacy Management System Subscriber Service==========================");
 		serviceReference = context.getServiceReference(UserServicePublish.class.getName());
 		UserServicePublish servicePublish = (UserServicePublish) context.getService(serviceReference);
 
@@ -22,13 +23,13 @@ public class Activator implements BundleActivator {
 			System.out.println("Enter a option >>>>> \n Option 1 = Create User \n Option 2 = Get User Using Id");
 			int option;
 			Scanner input = new Scanner(System.in);
-			
+
 			// Loop endlessly.
-			while(true) {
+			while (true) {
 				// Ask the user to enter a word.
 				System.out.print("Enter Option: ");
 				option = input.nextInt();
-				
+
 				switch (option) {
 				case 1:
 					System.out.print("Enter User Id: ");
@@ -44,9 +45,10 @@ public class Activator implements BundleActivator {
 
 					User user = servicePublish.creteUser(user_id, username, age, contect_number, address);
 					System.out.println("User created successfully!");
-					
-					System.out.println("User ID:" + user.getUser_id() + "\tUser Name:" + user.getUsername() + "\tUser Age:"
-							+ user.getAge() + "\tUser Contect Number:" + user.getContect_number() + "\tUser Address:" + user.getAddress());
+
+					System.out.println("User ID:" + user.getUser_id() + "\tUser Name:" + user.getUsername()
+							+ "\tUser Age:" + user.getAge() + "\tUser Contect Number:" + user.getContect_number()
+							+ "\tUser Address:" + user.getAddress());
 
 					break;
 				case 2:
@@ -55,16 +57,17 @@ public class Activator implements BundleActivator {
 
 					User user2 = servicePublish.getUsereById(UserId);
 					System.out.println("Found User!");
-					System.out.println("User ID:" + user2.getUser_id() + "\tUser Name:" + user2.getUsername() + "\tUser Age:"
-							+ user2.getAge() + "\tUser Contect Number:" + user2.getContect_number() + "\tUser Address:" + user2.getAddress());
+					System.out.println("User ID:" + user2.getUser_id() + "\tUser Name:" + user2.getUsername()
+							+ "\tUser Age:" + user2.getAge() + "\tUser Contect Number:" + user2.getContect_number()
+							+ "\tUser Address:" + user2.getAddress());
 
 					break;
 				default:
 					System.out.println("Something went wrong!");
 				}
-				}
-			
-		}catch (Exception ex) {
+			}
+
+		} catch (Exception ex) {
 			System.err.println(ex.getMessage());
 		}
 	}
