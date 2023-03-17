@@ -35,10 +35,12 @@ public class Activator implements BundleActivator {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 		try {
-			while (true) {
+			Boolean isExit = false;
+
+			while (isExit == false) {
 				int option = 0;
 
-				System.out.println("Enter 1 to Create a New Order\nEnter 2 View Orders");
+				System.out.println("Enter 1 to Create a New Order.\nEnter 2 View Orders.\nEnter 3 Exit.");
 
 				// get option input
 				try {
@@ -139,6 +141,9 @@ public class Activator implements BundleActivator {
 						System.out.println();
 					}
 
+					break;
+				case 3:
+					isExit = true;
 					break;
 				default:
 					System.out.println("Please Select a Valid Option!");
