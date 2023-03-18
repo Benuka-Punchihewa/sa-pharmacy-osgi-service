@@ -21,7 +21,8 @@ public class Activator implements BundleActivator {
 	ServiceReference serviceReference;
 
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Start  Subscriber Service");
+		System.out.println(
+				"========================Pharmacy Management System Subscriber Service==========================\n");
 
 		serviceReference = context.getServiceReference(OrderServicePublish.class.getName());
 		OrderServicePublish orderServicePublish = (OrderServicePublish) context.getService(serviceReference);
@@ -40,8 +41,11 @@ public class Activator implements BundleActivator {
 			while (isExit == false) {
 				int option = 0;
 
-				System.out.println("Enter 1 to Create a New Order.\nEnter 2 View Orders.\nEnter 3 Exit.");
-
+				System.out.println("Option 1: Create a New Order.\nOption 2: View Orders.\nOption 3: Exit.");
+				
+				System.out.println(
+						"===============================================================================================\n");
+				
 				// get option input
 				try {
 					System.out.print("Option: ");
@@ -49,6 +53,11 @@ public class Activator implements BundleActivator {
 				} catch (NumberFormatException ex) {
 					System.out.println("Only Integers are Allowed!");
 				}
+				
+				System.out.println(
+						"===============================================================================================\n");
+
+				
 
 				// process options
 				switch (option) {

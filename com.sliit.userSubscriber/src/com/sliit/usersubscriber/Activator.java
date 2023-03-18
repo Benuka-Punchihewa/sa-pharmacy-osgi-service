@@ -45,7 +45,7 @@ public class Activator implements BundleActivator {
 					String username = input.next();
 					System.out.print("Enter User Age: ");
 					String age = input.next();
-					System.out.print("Enter User Contect Number: ");
+					System.out.print("Enter User Contact Number: ");
 					String contect_number = input.next();
 					System.out.print("Enter User Adderess: ");
 					String address = input.next();
@@ -54,7 +54,7 @@ public class Activator implements BundleActivator {
 					System.out.println("User created successfully!");
 
 					System.out.println("User ID:" + user.getUser_id() + "\tUser Name:" + user.getUsername()
-							+ "\tUser Age:" + user.getAge() + "\tUser Contect Number:" + user.getContect_number()
+							+ "\tUser Age:" + user.getAge() + "\tUser Contact Number:" + user.getContect_number()
 							+ "\tUser Address:" + user.getAddress());
 
 					break;
@@ -71,7 +71,7 @@ public class Activator implements BundleActivator {
 					
 					System.out.println("Found User!");
 					System.out.println("User ID:" + user2.getUser_id() + "\tUser Name:" + user2.getUsername()
-							+ "\tUser Age:" + user2.getAge() + "\tUser Contect Number:" + user2.getContect_number()
+							+ "\tUser Age:" + user2.getAge() + "\tUser Contact Number:" + user2.getContect_number()
 							+ "\tUser Address:" + user2.getAddress());
 
 					break;

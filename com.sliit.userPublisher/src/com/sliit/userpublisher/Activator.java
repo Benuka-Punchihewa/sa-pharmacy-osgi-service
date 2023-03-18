@@ -9,14 +9,14 @@ public class Activator implements BundleActivator {
 	ServiceRegistration publishServiceRegistration;
 
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Publisher Start");
+		System.out.println("User Publisher Started");
 		
 		UserServicePublish servicePublish = new UserServicePublishImpl();
 		publishServiceRegistration = context.registerService(UserServicePublish.class.getName(), servicePublish, null);
 	}
 
 	public void stop(BundleContext context) throws Exception {
-		System.out.println("Publisher Stop");
+		System.out.println("Publisher Stoped");
 		publishServiceRegistration.unregister();
 	}
 

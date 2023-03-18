@@ -9,7 +9,7 @@ public class Activator implements BundleActivator {
 	ServiceRegistration publishServiceRegistration;
 
 	public void start(BundleContext context) throws Exception {
-		System.out.println("Publisher Started");
+		System.out.println("Order Publisher Started");
 		OrderServicePublish publisherService = new OrderServicePublishImpl();
 		publishServiceRegistration = context.registerService(OrderServicePublish.class.getName(), publisherService, null);
 	}
