@@ -20,12 +20,14 @@ public class Activator implements BundleActivator {
 		serviceReference = context.getServiceReference(MedicineServicePublish.class.getName());
 		MedicineServicePublish medicineServicePublish = (MedicineServicePublish) context.getService(serviceReference);
 		try {
-			System.out.println("Enter a option => \n Option 1 = Create Medicien \n Option 2 = Get Medicine Using Id \n Option 3 = Get all Medicines");
+			System.out.println(
+					"Enter a option => \n Option 1 = Create Medicien \n Option 2 = Get Medicine Using Id \n Option 3 = Get all Medicines \n Option 4 = Exit");
 			int option;
 			Scanner input = new Scanner(System.in);
 
+			Boolean isExit = false;
 			// Loop endlessly.
-			while (true) {
+			while (isExit == false) {
 				// Ask the user to enter a word.
 				System.out.print("Enter Option: ");
 				option = input.nextInt();
@@ -57,16 +59,20 @@ public class Activator implements BundleActivator {
 							+ medicine2.getPrice() + "\tStock:" + medicine2.getStock());
 
 					break;
-					
+
 				case 3:
 					ArrayList<Medicine> medicine3 = medicineServicePublish.getMedicines();
-					
 
 					for (Medicine medicines : medicine3) {
 						System.out.println(medicines.toString());
 						System.out.println();
 					}
-					
+
+					break;
+				case 4:
+					System.out.println("Exiting the system...");
+					isExit = true;
+
 					break;
 				default:
 					System.out.println("Something went wrong!");

@@ -25,9 +25,10 @@ public class Activator implements BundleActivator {
 			
 			int option;
 			Scanner input = new Scanner(System.in);
+			Boolean isExit = false;
 
 			// Loop endlessly.
-			while (true) {
+			while (isExit == false) {
 				System.out.println(
 						"===============================================================================================\n");
 				// Ask the user to enter a word.
@@ -86,7 +87,7 @@ public class Activator implements BundleActivator {
 				case 4:
 					System.out.println("Exiting the system...");
 					System.out.println("================================Have a nice day..==================================");
-					System.exit(0);
+					isExit = true;
 					break;
 					
 				default:
